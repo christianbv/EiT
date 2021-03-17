@@ -27,6 +27,26 @@ params = {
 }
 
 
+"""
+    Returns the live data, i.e. downloads last 48h of data from the various providers and returns it
+    Returns: 
+        dates   : pd.DataFrame.index.values                     -> The dates of the input data
+        data    : pd.DataFrame.values.astype('float32')         -> The input data that is given to the model
+        labels  : pd.DataFrame.values.astype('float32')         -> The labels of the input data given to the model
+"""
+def get_live_data():
+    pass
+
+"""
+    Performs prediction on the given data
+    Assumes data is on the same format as the data returned from "get_live_data"
+    Returns:
+        pred_dates         : pd.DataFrame.index.values                     -> The dates of the prediction interval (24h)
+        model_labels       : pd.DataFrame.values.astype('float32')         -> The predicted values of the model
+        baseline_labels    : pd.DataFrame.values.astype('float32')         -> The predicted values of the baseline
+"""
+def perform_prediction(dates, data, labels):
+    pass
 
 
 """
