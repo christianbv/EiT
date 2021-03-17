@@ -12,11 +12,11 @@ from datetime import datetime
 
 
 MODEL_TYPE = "rnn_updated"
-LOG_DIR = f"/Users/christianbv/PycharmProjects/EiT/tmp/logs/{MODEL_TYPE}"
+LOG_DIR = f"../EiT/tmp/logs/{MODEL_TYPE}"
 LOG_LEVEL = "ERROR"
-TARGET_PATH = "/Users/christianbv/PycharmProjects/EiT/final_datasets"
+TARGET_PATH = "../EiT/final_datasets"
 
-model_24h_path_local = "/Users/christianbv/PycharmProjects/EiT/tmp/models/rnn_updated/rnn_updated_20210303_162009/model"
+model_24h_path_local = "../EiT/tmp/models/rnn_updated/rnn_updated_20210303_162009/model"
 
 model_24h = tf.keras.models.load_model(f"{model_24h_path_local}/saved_model")
 
@@ -174,7 +174,7 @@ def plot_predictions(start_idx, IN_SIZE, OUT_SIZE, input_delay=16):
     # print(baseline_mse)
 
     # Denormalizing values, i.e. multiplying with stddeviation and adding the mean
-    data_info = pd.read_csv("/Users/christianbv/PycharmProjects/EiT/tmp/data_info/model_summary.txt")
+    data_info = pd.read_csv("../EiT/tmp/data_info/model_summary.txt")
     old_nox_vals = data_info[data_info['variable'] == 'nox']
     mean, std = old_nox_vals['mean'].values[0], old_nox_vals['std'].values[0]
 
@@ -214,5 +214,5 @@ def plot_predictions(start_idx, IN_SIZE, OUT_SIZE, input_delay=16):
     # plt.xticks(rotation=45)
     # plt.gca().set_xticklabels(f"{dates_slice[::3]:%Y-%m-%d %H:%M}", rotation=45)
     fig.tight_layout()
-    fig.savefig(f"/Users/christianbv/PycharmProjects/EiT/plots/lstm_prediction_{datetime.now():%Y%m%d_%H%M%S}.png", transparent=False, dpi=288)
+    fig.savefig(f"../EiT/plots/lstm_prediction_{datetime.now():%Y%m%d_%H%M%S}.png", transparent=False, dpi=288)
     fig.show()

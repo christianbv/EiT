@@ -11,16 +11,16 @@ from datetime import datetime
 
 
 params = {
-    'dataset': "/Users/christianbv/PycharmProjects/EiT/final_datasets",
+    'dataset': "../EiT/final_datasets",
     "train_split": 0.7,
     "val_split": 0.2,
     "test_split": 0.1
 }
 
 MODEL_TYPE = "rnn_updated"
-LOG_DIR = f"/Users/christianbv/PycharmProjects/EiT/tmp/logs/{MODEL_TYPE}"
+LOG_DIR = f"../EiT/tmp/logs/{MODEL_TYPE}"
 LOG_LEVEL = "ERROR"
-TARGET_PATH = '/Users/christianbv/PycharmProjects/EiT/final_datasets'
+TARGET_PATH = '../EiT/final_datasets'
 
 def load_data(TARGET_PATH):
     # Load all .parquet files as dataframes
@@ -198,7 +198,7 @@ class BaselineModel(tf.keras.Model):
 """
 @timeit
 def save_model(model, model_name, model_type, train_dataset, val_dataset, test_dataset, params, hparams, history, LOG_DIR, loss, metrics):
-    target_dir = f"//Users/christianbv/PycharmProjects/EiT/tmp/models/{model_type}/{model_name}"
+    target_dir = f"../EiT/tmp/models/{model_type}/{model_name}"
     os.mkdir(target_dir)
 
     export_logs_path = os.path.join(target_dir, "export_logs.txt")
