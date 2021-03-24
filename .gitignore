@@ -1,9 +1,11 @@
 ### vscode ###
 .vscode/*
+*.vscode
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
 
-# End of https://www.toptal.com/developers/gitignore/api/vscode
+## virtual enviroments ##
+**/venv/**
