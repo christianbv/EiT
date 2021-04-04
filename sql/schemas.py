@@ -2,13 +2,13 @@ from typing import List, Optional
 from pydantic import BaseModel
 
 class StationBase(BaseModel):
+    pass
+
+class StationCreate(StationBase):
     name: str
     altitude: int
     longitude: float
     latitude: float
-
-class StationCreate(StationBase):
-    pass
 
 class Station(StationBase):
     id: int
@@ -17,14 +17,14 @@ class Station(StationBase):
         orm_mode = True
 
 class ForecastBase(BaseModel):
-    data1: str
-    data2: str
-    data3: str
-    data4: str
-    data5: str
+    pass
 
 class ForecastCreate(BaseModel):
-    pass
+    data_one: str
+    data_two: str
+    data_three: str
+    data_four: str
+    data_five: str
 
 class Forecast(BaseModel):
     id: int

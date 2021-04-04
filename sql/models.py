@@ -9,7 +9,7 @@ class Station(Base):
     __tablename__ = "stations"
 
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String)
+    name = Column(String, unique=True, index=True)
     altitude = Column(Integer)
     longitude = Column(Float)
     latitude = Column(Float)
@@ -20,12 +20,12 @@ class Station(Base):
 class Forecast(Base):
     __tablename__ = "forecasts"
 
-    id = Column(Integer, primary_key=True)
-    data1 = Column(String)
-    data2 = Column(String)
-    data3 = Column(String)
-    data4 = Column(String)
-    data5 = Column(String)
+    id = Column(Integer, primary_key=True, index=True)
+    data_one = Column(String)
+    data_two = Column(String)
+    data_three = Column(String)
+    data_four = Column(String)
+    data_five = Column(String)
 
     stationId = Column(Integer, ForeignKey("stations.id"))
     station = relationship("Station", back_populates="forecasts")

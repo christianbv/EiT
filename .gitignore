@@ -9,3 +9,6 @@
 
 ## virtual enviroments ##
 **/venv/**
+
+## python ##
+**/__pycache__/*
