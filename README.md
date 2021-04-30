@@ -1,4 +1,4 @@
-# EiT
+# EiT - Digital Communities and Welfare 
 
 ## Introduction
 Nine out of ten people worldwide breathe polluted air (WHO, 2018), 
