@@ -9,6 +9,7 @@ class StationCreate(StationBase):
     altitude: int
     longitude: float
     latitude: float
+    locationId: int
 
 class Station(StationBase):
     id: int
@@ -25,10 +26,22 @@ class ForecastCreate(BaseModel):
     data_three: str
     data_four: str
     data_five: str
+    stationId: int
 
 class Forecast(BaseModel):
     id: int
-    stationId: int
+
+    class Config:
+        orm_mode = True
+
+class LocationBase(BaseModel):
+    pass
+
+class LocationCreate(BaseModel):
+    name: str
+
+class Location(BaseModel):
+    id: int
 
     class Config:
         orm_mode = True

@@ -16,6 +16,18 @@ class Station(Base):
 
     forecasts = relationship("Forecast", back_populates="station")
 
+    locationId = Column(Integer, ForeignKey("locations.id"))
+    location = relationship("Location", back_populates="stations")
+
+
+class Location(Base):
+    __tablename__ = "locations"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, unique=True, index=True)
+
+    stations = relationship("Station", back_populates="location")
+
 
 class Forecast(Base):
     __tablename__ = "forecasts"
