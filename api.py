@@ -1,39 +1,35 @@
+from databases.core import Database
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 
-from sql import crud, models, schemas
+from sql import models, schemas
 from sql.database import SessionLocal, engine
+import databases
 
-models.Base.metadata.create_all(bind=engine)
+DATABASE_URL = "sqlite:///./eit.db"
+
+database = databases.Database(DATABASE_URL)
+
+models.metadata.create_all(bind=engine)
 
 api = FastAPI()
 
-## TODO: ASYNC DB-IMPLEMENTATION
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+@api.on_event("startup")
+async def startup():
+    await database.connect()
 
-@api.get("/")
+
+@api.on_event("shutdown")
+async def shutdown():
+    await database.disconnect()
+
+@api.get("/", response_model=schemas.Forecast)
 async def root():
-    return {"message": "Hello World"}
+    query = models.forecast.select().order_by(models.forecast.c.id.desc())
+    return await database.fetch_one(query)
+    #return {"message": "Hello World"}
 
-
-@api.get("/forecast/{%id}")
-async def root():
-    return {"message": "Hello World"}
-
-@api.get("/forecast/latest", response_model=schemas.Forecast)
-async def get_latest_forecast(db: Session = Depends(get_db)):
-    return crud.get_latest_forecast(db)
-
-@api.post("/forecast/", response_model=schemas.Forecast)
-async def add_forecast(forecast: schemas.ForecastCreate, db: Session = Depends(get_db)):
-    return crud.add_forecast(db, forecast)
-
-
-@api.get("/stations/")
-async def root():
-    return {"message": "List of stations"}
+@api.get("/location/forecast/latest", response_model=schemas.Forecast)
+async def get_latest_forecast():
+    query = models.forecast.select().order_by(models.forecast.c.id.desc())
+    return await database.fetch_one(query)

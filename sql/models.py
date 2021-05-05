@@ -1,43 +1,35 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+import sqlalchemy
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.sqltypes import Float
 
 from .database import Base
 
+metadata = sqlalchemy.MetaData()
 
-class Station(Base):
-    __tablename__ = "stations"
+forecast = sqlalchemy.Table(
+    "forecasts",
+    metadata,
+    Column("id", Integer, primary_key=True, index=True),
+    Column("timestamp", String),
+    Column("nox", Float),
+    Column("stationId", ForeignKey('stations.id'), nullable=False)
+)
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, unique=True, index=True)
-    altitude = Column(Integer)
-    longitude = Column(Float)
-    latitude = Column(Float)
+station = sqlalchemy.Table(
+    "stations",
+    metadata,
+    Column("id", Integer, primary_key=True, index=True),
+    Column("name", String, unique=True, index=True),
+    Column("altitude", Integer),
+    Column("longitude", Float),
+    Column("latitude", Float),
+    Column("locationId", ForeignKey("locations.id")),
+)
 
-    forecasts = relationship("Forecast", back_populates="station")
-
-    locationId = Column(Integer, ForeignKey("locations.id"))
-    location = relationship("Location", back_populates="stations")
-
-
-class Location(Base):
-    __tablename__ = "locations"
-
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, unique=True, index=True)
-
-    stations = relationship("Station", back_populates="location")
-
-
-class Forecast(Base):
-    __tablename__ = "forecasts"
-
-    id = Column(Integer, primary_key=True, index=True)
-    data_one = Column(String)
-    data_two = Column(String)
-    data_three = Column(String)
-    data_four = Column(String)
-    data_five = Column(String)
-
-    stationId = Column(Integer, ForeignKey("stations.id"))
-    station = relationship("Station", back_populates="forecasts")
+location = sqlalchemy.Table(
+    "locations",
+    metadata,
+    Column("id", Integer, primary_key=True, index=True),
+    Column("name", String, unique=True, index=True)
+)
